@@ -1,46 +1,81 @@
+const EventEmitter = require('events').EventEmitter
+var utils = require('./utils')
 
-class RouteHandler {
+class RouteHandler extends EventEmitter {
 		
-  constructor() {
-	  console.log("constructor");
-  }
-  
-  handle(app) {
-	
-	console.log("handle");
-	//var listUrls = require('./controller/listUrls.js')
-	//app.get('/listUrls', listUrls)
-	var util = require('./util')
-
-	app.get('/:url', function (req, res) {
-		
-		var url = req.params.url
-		if(!util.string.onlyLettersAndDigits(url)) {
-			matchUrl(req, res)
-			return
-		}
-		
-		// check if module exists in controller folder
-		try {
-			var module = require('./controller/'+url+'.js')
-		} catch(e) {
-			matchUrl(req, res)
-			return
-		}
-		module(req, res)
-	})
-
-	var matchUrl = function(req, res) {
-
-		// getRealUrl
-		var url = req.params.url
-		res.writeHead(200);
-		var url = req.params.url
-		res.end('Url is: ' + url)
+	constructor() {
+		super()
+		//var UnknownUrl = require('./controller/unknownUrl.js')
+		//var uu = new UnknownUrl();
 	}
+  
+	handle(app) {
+		var that = this
+			
+		app.post('/:url', function (req, res) {
+			handleUrls(req, res)
+		})
+		
+		app.get('/:url', function (req, res) {
+			handleUrls(req, res)
+		})
+		
+		var handleUrls = function(req, res)
+		{
+			var url = req.params.url
+			var controller = urlHasController(url)
+			if(!controller) {
+				// TODO
+				//that.emit('unknownUrl', url)
+				//unknownUrl.handle(req, res)
+				res.writeHead(200)
+				res.end('Url is: ' + url)
+			} else {
+				try {
+					switch(req.method)
+					{
+						case 'GET':
+							controller.get(req, res)
+							break
+						case 'POST':
+							controller.post(req, res)
+							break
+						case 'PUT':
+							controller.put(req, res)
+							break
+						case 'DELETE':
+							controller.delete(req, res)
+							break
+						default:
+						throw404(req, res)
+					}
+				} catch(e) {
+					throw404(req, res)
+				}
+			}
+		}
+		
+		var urlHasController = function(url) {
+			if(!utils.string.onlyLettersAndDigits(url))
+				return false
+			try {
+				// check if module exists in controller folder
+				var module = require('./controller/'+url+'.js')
+			} catch(e) {
+				return false
+			}
+			return module
+		}
+		
+		var throw404 = function(req, res) {
+			res.writeHead(404)
+			res.end()
+        }
+
 	
-	return app
-  }
+		return app
+	}
+}
 	
 // TODO move to separate files ->
 /*
@@ -66,6 +101,5 @@ app.delete('/del_user', function (req, res) {
 })*/
 	
 
-}
 
 module.exports = RouteHandler;
