@@ -1,4 +1,4 @@
-
+var LinkGenerator = require('./../lib/linkGenerator.js')
 
 module.exports = {
 	
@@ -12,11 +12,10 @@ module.exports = {
 			res.send('/setUrl with hash = ' + hash)
 		}
 		
-		const LinkGenerator = require('./../lib/linkGenerator.js')
 		let linkGen = new LinkGenerator();
 		
-		var url = req.params.url
-		app = linkGen.generate(url, callback)
+		var link = "test"
+		app = linkGen.generate(link, callback)
 		
 	}
 	

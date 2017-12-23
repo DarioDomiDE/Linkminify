@@ -1,10 +1,10 @@
 var express = require('express'),
-	app = express();
+	app = express(),
+	routeHandler = require('./routeHandler.js'),
+	config = require('./config')
 
 // initialize RouteHandler
-const RouteHandler = require('./routeHandler.js')
-let routes = new RouteHandler();
+let routes = new routeHandler();
 app = routes.handle(app);
 
-const PORT = 80;
-app.listen(PORT)
+app.listen(config.port)

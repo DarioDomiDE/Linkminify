@@ -1,0 +1,11 @@
+var config = {};
+
+config.port = 80
+config.miniLinkLength = 10
+
+config.mongodb = {}
+config.mongodb.uri = '...'
+config.mongodb.host = '...'
+config.mongodb.port = 6379
+
+module.exports = config
