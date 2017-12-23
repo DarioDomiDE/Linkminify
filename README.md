@@ -12,3 +12,22 @@ The focus of the task is not speed but quality of code and architecture.
 - ECMAScript 6
 - ExpressJS
 - API (RESTful or GraphQL)
+
+### Notices
+
+Run with logs:
+' node main.js > output.log 2> err.log
+
+Services that would be cool to use
+
+- MongoDB
+- GraphQL or any ORM ()
+- SwaggerUI for RestAPI Doc
+
+#### Models:
+
+Links
+- ID
+- UserId (not used yet)
+- RealURL
+- MiniURL
