@@ -47,10 +47,10 @@ class RouteHandler extends EventEmitter {
 							controller.delete(req, res)
 							break
 						default:
-						throw404(req, res)
+						throw404(req, res, e)
 					}
 				} catch(e) {
-					throw404(req, res)
+					throw404(req, res, e)
 				}
 			}
 		}
@@ -67,7 +67,10 @@ class RouteHandler extends EventEmitter {
 			return module
 		}
 		
-		var throw404 = function(req, res) {
+		var throw404 = function(req, res, e) {
+			var url = req.params.url
+			console.log("throw 404 error at " + url)
+			console.log(e)
 			res.writeHead(404)
 			res.end()
         }
