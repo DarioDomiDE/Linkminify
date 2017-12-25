@@ -11,8 +11,10 @@ The service should be able to track a click on such a generated link and also re
 
 ### Notices
 
-Run with logs:
-' node main.js > output.log 2> err.log
+To run this program:
+  * npm install	
+  * node main.js
+  * (or optional:) node main.js > output.log 2> err.log
 
 #### Services (that would be cool to use)
 

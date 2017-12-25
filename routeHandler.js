@@ -16,6 +16,9 @@ class RouteHandler extends EventEmitter {
 			handleUrls(req, res)
 		})
 		
+		app.get('/', function (req, res) {
+			handleUrls(req, res)
+		})
 		app.get('/:url', function (req, res) {
 			handleUrls(req, res)
 		})
@@ -26,10 +29,19 @@ class RouteHandler extends EventEmitter {
 			var controller = urlHasController(url)
 			if(!controller) {
 				// TODO
-				//that.emit('unknownUrl', url)
-				//unknownUrl.handle(req, res)
-				res.writeHead(200)
-				res.end('Url is: ' + url)
+				if(url !== undefined) {
+					//let isUrl = chek
+				}
+
+				{
+					res.writeHead(404)
+					res.end()
+				} else {
+					//that.emit('unknownUrl', url)
+					//unknownUrl.handle(req, res)
+					res.writeHead(200)
+					res.end('Url is: ' + url)
+				}
 			} else {
 				try {
 					switch(req.method)
@@ -79,30 +91,5 @@ class RouteHandler extends EventEmitter {
 		return app
 	}
 }
-	
-// TODO move to separate files ->
-/*
-app.post('/addUrl', function (req, res) {
-	console.log('/addUrl');
-	var data = {"realUrl": "www.game.codi.ng"}
-	// TODO insert data to DB
-	res.writeHead(200);
-	res.end();
-})
-
-app.delete('/deleteUrl', function (req, res) {
-	console.log('/deleteUrl');
-	// TODO delete data to DB
-	res.writeHead(200);
-	res.end();
-})
-
-// This responds a DELETE request for the /del_user page.
-app.delete('/del_user', function (req, res) {
-   console.log("Got a DELETE request for /del_user")
-   res.send('Hello DELETE')
-})*/
-	
-
 
 module.exports = RouteHandler;
