@@ -19,11 +19,12 @@ To run this program:
 #### Services (that would be cool to use)
 
 - Clean Architecture
-- MongoDB
-- GraphQL or any ORM
+✓ MongoDB
+✓ GraphQL or some ODM (currently using MongoOse)
 - SwaggerUI for RestAPI Doc
 - Unit-Tests
 - some quick&dirty ReactJS Frontend
+- hosted somewhere
 
 #### Models:
 

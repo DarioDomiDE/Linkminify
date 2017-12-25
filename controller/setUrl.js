@@ -16,7 +16,6 @@ module.exports = {
 		
 		var link = "test"
 		app = linkGen.generate(link, callback)
-		
 	}
 	
 }
