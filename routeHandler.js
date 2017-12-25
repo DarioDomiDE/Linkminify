@@ -28,12 +28,7 @@ class RouteHandler extends EventEmitter {
 			var url = req.params.url
 			var controller = urlHasController(url)
 			if(!controller) {
-				// TODO
 				if(url !== undefined) {
-					//let isUrl = chek
-				}
-
-				{
 					res.writeHead(404)
 					res.end()
 				} else {
