@@ -1,47 +1,71 @@
-var utils = require('./utils')
+var mongoose = require('mongoose'),
+	utils = require('./../utils')
+
+var handleError = utils.errorHandling.handleError
 
 class LinksDB {
 		
 	constructor() {
-
+		var schema = mongoose.Schema
+		var linkSchema = new schema({
+			realUrl: String,
+			miniUrl: String,
+			accessCount: Number,
+			created: { type: Date, default: Date.now }
+		})
+		this.linkModel = mongoose.model('link', linkSchema)
 	}
 
 	create(realUrl, miniUrl) {
-		var newLink = new linkModel()
-		newLink.realUrl = realUrl
-		newLink.miniUrl = miniUrl
-		newLink.accessCount = 0
-		newLink.save(saveCallback)
-		var saveCallback = function(err) {
-			if (err) {
-				return handleError("error saving db: " + err)
-			}
-		}
+		var that = this
+		return new Promise(function(resolve, reject) {
+			var newLink = new that.linkModel()
+			newLink.realUrl = realUrl
+			newLink.miniUrl = miniUrl
+			newLink.accessCount = 0
+			newLink
+				.save()
+				.then(function (data) { 
+					return resolve(data)
+				})
+				.catch(function(err) {
+					handleError('error saving db: ' + err)
+					return reject(err)
+				})
+		})
 
 	}
 
-	findOne(conditions, returnFields, callback) {
-		var query = linkModel
-			.findOne(conditions)
-			.select(returnFields)
-		query.exec(function (err, data) {
-			if (err)
-				handleError('error find db: ' + err)
-			callback(err, data)
+	findOne(conditions, returnFields) {
+		var that = this
+		return new Promise(function(resolve, reject) {
+			that.linkModel
+				.findOne(conditions)
+				.select(returnFields)
+				.exec()
+				.then(function (data) {
+					return resolve(data)
+				})
+				.catch(function(err) {
+					handleError('error find db: ' + err)
+					return reject(err)
+				}) 
 		})
 	}
 
-	exists(conditions, returnFields, callback) {
-		var cb = function(err, data)
-		{
-			var exists = data.length != 0
-			callback(err, exists)
-		}
-		findOne(conditions, returnFields, cb)
+	exists(conditions) {
+		var that = this
+		return new Promise(function(resolve, reject) {
+			that.findOne(conditions, '').
+			then(function(data) {
+				return resolve (data != null && data.length != 0)
+			})
+			.catch(function(err) {
+				return reject(err)
+			})
+		})
 	}
 
-
-
-
 }
+
 module.exports = LinksDB;

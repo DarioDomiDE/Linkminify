@@ -10,38 +10,50 @@ const routes = new routeHandler();
 app = routes.handle(app);
 app.listen(config.port)
 
-
-
 // initialize Mongoose
 var mongoose = require('mongoose')
 var mongoConnection = 'mongodb://dario:caf9c0937a@78.46.178.185:27017/finance';
 mongoose.connect(mongoConnection, { config: { autoIndex: false }, useMongoClient: true });
-
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+db.on('error', function() {
+	console.error.bind(console, 'MongoDB connection error:')
+	// TODO throw error - 404 or something else
+	//res.writeHead(404)
+	//req.end()
+});
 
 
 const links = new linksDB();
 
 // FIND ONE
-var findCallback = function(err, data) {
-	if(err) {
-		console.log("err is: " + err)
-		// TODO
-		return
-	}
-	console.log("data is " + data)
+var findSuccessful = function(data) {
+	console.log('result: ' + data)
 }
-app = links.findOne({'miniUrl': 'adc123'}, 'realUrl miniUrl accessCount', findCallback);
+var findFailed  = function(data) {
+	console.log('buuuuh :( : ' + data)
+}
+links
+	.findOne({'miniUrl': 'adc123'}, 'realUrl miniUrl accessCount')
+	.then(findSuccessful)
+	.catch(findFailed)
 
 // EXISTS
-var existsCallback = function(err, data) {
-	console.log(err)
+var existsSuccessful = function(data) {
+	console.log('existsSuccessful')
 	console.log(data)
 }
-links.exists({'miniUrl': 'adc123'}, existsCallback)
+var existsFailed = function(err) {
+	console.log('existsFailed')
+	console.log(err)
+}
+links
+	.exists({'miniUrl': 'adc1234'})
+	.then(existsSuccessful)
+	.catch(existsFailed)
 
 // CREATE
-//links.create('bla.com/hey/was/geht', 'm589s')
+//links
+//.create('bla.com/hey/was/geht', 'm589s')
+	//.then(function(data) { console.log(data) })
+	//.catch(function(err) { console.log(err) })
