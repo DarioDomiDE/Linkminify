@@ -1,9 +1,9 @@
-var express = require('express'),
-	app = express(),
-	routeHandler = require('./routeHandler.js'),
-	db = require('./db'),
-	config = require('./production.env'),
-	utils = require('./utils')
+var express = require('express')
+var app = express()
+var routeHandler = require('./routeHandler.js')
+var db = require('./db')
+var config = require('./production.env')
+var utils = require('./utils')
 
 let handleError = utils.errorHandling.handleError
 

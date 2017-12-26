@@ -1,5 +1,5 @@
-var db = require('./../db'),
-	linkGenerator = require('./../lib/linkGenerator.js')
+var db = require('./../db')
+var linkGenerator = require('./../lib/linkGenerator.js')
 
 var linkGen = new linkGenerator()
 var linksDB = new db.linksDB()

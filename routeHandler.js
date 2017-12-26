@@ -1,4 +1,4 @@
-const EventEmitter = require('events').EventEmitter
+var EventEmitter = require('events').EventEmitter
 var utils = require('./utils')
 
 class RouteHandler extends EventEmitter {
@@ -78,7 +78,7 @@ class RouteHandler extends EventEmitter {
 				var module = require('./controller/'+url+'.js')
 			} catch(e) {
 				if(e.toString().includes('Cannot find module'))
-					console.log('Can\'t find controller for: /' + url + 'or errors in file')
+					console.log('Can\'t find controller: /' + url)
 				else
 					console.log(e)
 				return false
