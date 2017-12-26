@@ -24,7 +24,7 @@ class LinksDB {
 			newLink
 				.save()
 				.then(resolve)
-				.catch(reject) 
+				.catch(reject)
 		})
 	}
 
@@ -43,11 +43,23 @@ class LinksDB {
 	exists(conditions) {
 		var that = this
 		return new Promise(function(resolve, reject) {
-			that.findOne(conditions, '').
-			then(data => (data == null) ? resolve() : reject(null) )
-			.catch(reject)
+			that
+				.findOne(conditions, '')
+				.then(data => (data == null) ? resolve() : reject(null) )
+				.catch(reject)
 		})
 	}
+
+	remove(data) {
+		var that = this
+		return new Promise(function(resolve, reject) {
+			model
+				.remove({realUrl: data.realUrl, miniUrl: data.miniUrl})
+				.then(resolve)
+				.catch(reject)
+		})
+	}
+
 
 }
 

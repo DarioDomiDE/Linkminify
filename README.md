@@ -13,11 +13,11 @@ This Service is able to transform any http link into a minimized and trackable l
 > work in progres...
 
 ## ToDo
-- Clean Code
 - Config Handling (remove dependencies)
 - Error Handling
 - controller as classes and 400/404 status via inheritence?
 - Unit-Tests
+- models in separate classes
 
 ## Installation
 
