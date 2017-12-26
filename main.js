@@ -1,47 +1,53 @@
 var express = require('express'),
 	app = express(),
 	routeHandler = require('./routeHandler.js'),
-	linksDB = require('./db/linksDB.js'),
+	db = require('./db'),
 	config = require('./production.env'),
 	utils = require('./utils')
+
+var handleError = utils.errorHandling.handleError
 
 // initialize RouteHandler
 const routes = new routeHandler();
 app = routes.handle(app);
-app.listen(config.port)
-
-// initialize Mongoose
-var mongoose = require('mongoose')
-var user = config.mongodb.user
-var pw = config.mongodb.pw
-var host = config.mongodb.host
-var port = config.mongodb.port
-var db = config.mongodb.db
-var mongoConnection = 'mongodb://'+user+':'+pw+'@'+host+':'+port+'/'+db
-mongoose.connect(mongoConnection, { config: { autoIndex: false }, useMongoClient: true });
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-db.on('error', function(err) {
-	console.log('MongoDB connection error: ' + err)
-	// TODO throw error - 404 or something else
-	//res.writeHead(404)
-	//req.end()
-});
+//app.listen(config.port)
 
 
-const links = new linksDB();
+// initialize DB
+var configUser = config.mongodb.user
+var configPw = config.mongodb.pw
+var configHost = config.mongodb.host
+var configPort = config.mongodb.port
+var configDb = config.mongodb.db
+var mongoConnection = 'mongodb://'+configUser+':'+configPw+
+					  '@'+configHost+':'+configPort+'/'+configDb
+
+const mongoDB = new db.mongoDB();
+mongoDB
+	.setDb(mongoConnection)
+	.then(() => {
+		console.log('MongoDB Connection successful')
+		app.listen(config.port)
+	})
+	.catch(err => {
+		handleError('MongoDB Connection failed: ' + err)
+	})
+
+
+const linksDB = new db.linksDB();
 
 // FIND ONE
 var findSuccessful = function(data) {
 	console.log('result: ' + data)
 }
-var findFailed  = function(data) {
-	console.log('buuuuh :( : ' + data)
+var findFailed  = function(err) {
+	console.log('buuuuh :( : ' + err)
 }
-links
+linksDB
 	.findOne({'miniUrl': 'adc123'}, 'realUrl miniUrl accessCount')
 	.then(findSuccessful)
 	.catch(findFailed)
+
 
 // EXISTS
 var existsSuccessful = function(data) {
@@ -52,10 +58,11 @@ var existsFailed = function(err) {
 	console.log('existsFailed')
 	console.log(err)
 }
-links
+linksDB
 	.exists({'miniUrl': 'adc1234'})
 	.then(existsSuccessful)
 	.catch(existsFailed)
+
 
 // CREATE
 //links

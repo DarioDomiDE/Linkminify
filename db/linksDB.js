@@ -1,12 +1,10 @@
-var mongoose = require('mongoose'),
-	utils = require('./../utils')
-
-var handleError = utils.errorHandling.handleError
+var mongoose = require('mongoose')
 
 class LinksDB {
 		
 	constructor() {
 		var schema = mongoose.Schema
+		mongoose.Promise = Promise
 		var linkSchema = new schema({
 			realUrl: String,
 			miniUrl: String,
@@ -25,15 +23,9 @@ class LinksDB {
 			newLink.accessCount = 0
 			newLink
 				.save()
-				.then(function (data) { 
-					return resolve(data)
-				})
-				.catch(function(err) {
-					handleError('error saving db: ' + err)
-					return reject(err)
-				})
+				.then(data => resolve(data))
+				.catch(err => reject(err))
 		})
-
 	}
 
 	findOne(conditions, returnFields) {
@@ -43,13 +35,8 @@ class LinksDB {
 				.findOne(conditions)
 				.select(returnFields)
 				.exec()
-				.then(function (data) {
-					return resolve(data)
-				})
-				.catch(function(err) {
-					handleError('error find db: ' + err)
-					return reject(err)
-				}) 
+				.then(data => resolve(data))
+				.catch(err => reject(err)) 
 		})
 	}
 
@@ -57,12 +44,8 @@ class LinksDB {
 		var that = this
 		return new Promise(function(resolve, reject) {
 			that.findOne(conditions, '').
-			then(function(data) {
-				return resolve (data != null && data.length != 0)
-			})
-			.catch(function(err) {
-				return reject(err)
-			})
+			then(data => resolve(data != null))
+			.catch(err => reject(err))
 		})
 	}
 
