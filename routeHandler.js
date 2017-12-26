@@ -6,7 +6,7 @@ class RouteHandler extends EventEmitter {
 	constructor() {
 		super()
 		//var UnknownUrl = require('./controller/unknownUrl.js')
-		//var uu = new UnknownUrl();
+		//var uu = new UnknownUrl()
 	}
   
 	handle(app) {
@@ -87,4 +87,4 @@ class RouteHandler extends EventEmitter {
 	}
 }
 
-module.exports = RouteHandler;
+module.exports = RouteHandler

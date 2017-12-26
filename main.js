@@ -5,11 +5,11 @@ var express = require('express'),
 	config = require('./production.env'),
 	utils = require('./utils')
 
-var handleError = utils.errorHandling.handleError
+let handleError = utils.errorHandling.handleError
 
 // initialize RouteHandler
-const routes = new routeHandler();
-app = routes.handle(app);
+const routes = new routeHandler()
+app = routes.handle(app)
 //app.listen(config.port)
 
 
@@ -22,7 +22,7 @@ var configDb = config.mongodb.db
 var mongoConnection = 'mongodb://'+configUser+':'+configPw+
 					  '@'+configHost+':'+configPort+'/'+configDb
 
-const mongoDB = new db.mongoDB();
+const mongoDB = new db.mongoDB()
 mongoDB
 	.setDb(mongoConnection)
 	.then(() => {
@@ -34,7 +34,7 @@ mongoDB
 	})
 
 
-const linksDB = new db.linksDB();
+const linksDB = new db.linksDB()
 
 // FIND ONE
 var findSuccessful = function(data) {

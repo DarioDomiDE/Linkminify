@@ -51,4 +51,4 @@ class LinksDB {
 
 }
 
-module.exports = LinksDB;
+module.exports = LinksDB

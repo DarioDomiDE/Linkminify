@@ -12,7 +12,7 @@ module.exports = {
 			res.send('/setUrl with hash = ' + hash)
 		}
 		
-		let linkGen = new LinkGenerator();
+		let linkGen = new LinkGenerator()
 		
 		var link = "test"
 		app = linkGen.generate(link, callback)

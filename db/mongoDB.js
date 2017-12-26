@@ -39,4 +39,4 @@ class MongoDB extends iDB {
 
 }
 
-module.exports = MongoDB;
+module.exports = MongoDB
