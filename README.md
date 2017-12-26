@@ -11,6 +11,7 @@ This Service is able to transform any http link into a minimized and trackable l
 - Unit-Tests
 - some quick&dirty ReactJS Frontend
 - hosted somewhere
+> wip
 
 
 ## Installation
@@ -22,7 +23,7 @@ node main.js
 (or production:) node main.js > output.log 2> err.log
 ```
 
-#### Models:
+## Models:
 
 Link
 - RealURL
