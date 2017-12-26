@@ -1,12 +1,6 @@
 # Linkminify - Specification
 
-This API can transform any http link into a minimized and trackable link. The service is be able to track a click on such a generated link and also redirect the user to the initial URL. Example: https://doma.in/long/path will become https://link.doma.in/abc123. The focus is not speed but quality of code and architecture.
-
-### Technical Requirements
-
-- ECMAScript 6
-- ExpressJS
-- API (RESTful or GraphQL)
+This Service is able to transform any http link into a minimized and trackable link, will track a click on such a generated link and also redirect the user to the initial URL. Example: https://doma.in/long/path will become https://link.doma.in/abc123. It provices an RESTful API and was build powered by NodeJS with ES6.
 
 ## Features (that would be cool to use)
 
