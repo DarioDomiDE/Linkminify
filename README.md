@@ -11,7 +11,7 @@ This Service is able to transform any http link into a minimized and trackable l
 - Unit-Tests
 - some quick&dirty ReactJS Frontend
 - hosted somewhere
-> wip
+> to be continued...
 
 
 ## Installation
