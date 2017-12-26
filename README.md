@@ -23,9 +23,6 @@ node main.js
 (or production:) node main.js > output.log 2> err.log
 ```
 
-## Models:
+## Rest API
 
-Link
-- RealURL
-- MiniURL
-- AccessCount
+https://app.swaggerhub.com/apis/DarioDomiDE/linkminify/1.0.0#/
