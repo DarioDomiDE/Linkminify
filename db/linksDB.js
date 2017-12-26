@@ -14,17 +14,17 @@ class LinksDB {
 		this.linkModel = mongoose.model('link', linkSchema)
 	}
 
-	create(realUrl, miniUrl) {
+	create(data) {
 		var that = this
 		return new Promise(function(resolve, reject) {
 			var newLink = new that.linkModel()
-			newLink.realUrl = realUrl
-			newLink.miniUrl = miniUrl
+			newLink.realUrl = data.realUrl
+			newLink.miniUrl = data.miniUrl
 			newLink.accessCount = 0
 			newLink
 				.save()
-				.then(data => resolve(data))
-				.catch(err => reject(err))
+				.then(resolve)
+				.catch(reject) 
 		})
 	}
 
@@ -35,8 +35,8 @@ class LinksDB {
 				.findOne(conditions)
 				.select(returnFields)
 				.exec()
-				.then(data => resolve(data))
-				.catch(err => reject(err)) 
+				.then(resolve)
+				.catch(reject) 
 		})
 	}
 
@@ -44,8 +44,8 @@ class LinksDB {
 		var that = this
 		return new Promise(function(resolve, reject) {
 			that.findOne(conditions, '').
-			then(data => resolve(data != null))
-			.catch(err => reject(err))
+			then(data => (data == null) ? resolve() : reject(null) )
+			.catch(reject)
 		})
 	}
 

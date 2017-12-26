@@ -12,7 +12,6 @@ const routes = new routeHandler()
 app = routes.handle(app)
 //app.listen(config.port)
 
-
 // initialize DB
 var configUser = config.mongodb.user
 var configPw = config.mongodb.pw
@@ -34,8 +33,9 @@ mongoDB
 	})
 
 
-const linksDB = new db.linksDB()
+//var linksDB = new db.linksDB()
 
+/*
 // FIND ONE
 var findSuccessful = function(data) {
 	console.log('result: ' + data)
@@ -62,7 +62,7 @@ linksDB
 	.exists({'miniUrl': 'adc1234'})
 	.then(existsSuccessful)
 	.catch(existsFailed)
-
+*/
 
 // CREATE
 //links

@@ -11,11 +11,11 @@ class RouteHandler extends EventEmitter {
   
 	handle(app) {
 		var that = this
+
 			
 		app.post('/:url', function (req, res) {
 			handleUrls(req, res)
 		})
-		
 		app.get('/', function (req, res) {
 			handleUrls(req, res)
 		})
@@ -45,7 +45,14 @@ class RouteHandler extends EventEmitter {
 							controller.get(req, res)
 							break
 						case 'POST':
-							controller.post(req, res)
+							var body = '';
+							req.on('data', function (chunk) {
+								body += chunk;
+							});
+							req.on('end', function () {
+								var jsonObj = JSON.parse(body);
+								controller.post(req, res, jsonObj)
+							})
 							break
 						case 'PUT':
 							controller.put(req, res)
@@ -54,7 +61,7 @@ class RouteHandler extends EventEmitter {
 							controller.delete(req, res)
 							break
 						default:
-						throw404(req, res, e)
+							throw 'invalid request method'
 					}
 				} catch(e) {
 					throw404(req, res, e)
@@ -63,12 +70,17 @@ class RouteHandler extends EventEmitter {
 		}
 		
 		var urlHasController = function(url) {
-			if(!utils.string.onlyLettersAndDigits(url))
+			if(!utils.string.onlyLettersAndDigits(url)) {
 				return false
+			}
 			try {
 				// check if module exists in controller folder
 				var module = require('./controller/'+url+'.js')
 			} catch(e) {
+				if(e.toString().includes('Cannot find module'))
+					console.log('Can\'t find controller for: /' + url + 'or errors in file')
+				else
+					console.log(e)
 				return false
 			}
 			return module

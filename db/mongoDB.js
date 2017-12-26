@@ -20,17 +20,6 @@ class MongoDB extends iDB {
 				reject(err)
 			})
 		})
-
-		/*
-		this.connection.on('error', function(err) {
-			console.log('MongoDB connection error: ' + err)
-			// TODO throw error
-		})
-		this.connection.on('error', function(err) {
-			console.log('MongoDB connection error: ' + err)
-			// TODO throw error
-		})*/
-
 	}
 
 	close() {
