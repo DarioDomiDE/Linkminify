@@ -60,7 +60,7 @@ class LinksDB {
 		})
 	}
 
-
 }
 
 module.exports = LinksDB
+LinksDB.linksDB = new LinksDB()

@@ -1,16 +1,16 @@
 var EventEmitter = require('events').EventEmitter
 var utils = require('./utils')
+var unknownUrl = require('./controller/unknownUrl.js')
+var uu = new unknownUrl()
 
 class RouteHandler extends EventEmitter {
 		
 	constructor() {
 		super()
-		//var UnknownUrl = require('./controller/unknownUrl.js')
-		//var uu = new UnknownUrl()
 	}
   
 	handle(app) {
-		var that = this
+		//var that = this
 
 			
 		app.post('/:url', function (req, res) {
@@ -29,11 +29,9 @@ class RouteHandler extends EventEmitter {
 			var controller = urlHasController(url)
 			if(!controller) {
 				if(url !== undefined) {
-					res.writeHead(404)
-					res.end()
+					uu.handle(req, res)
 				} else {
 					//that.emit('unknownUrl', url)
-					//unknownUrl.handle(req, res)
 					res.writeHead(200)
 					res.end('Url is: ' + url)
 				}

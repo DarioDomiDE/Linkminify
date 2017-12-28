@@ -2,7 +2,8 @@ var db = require('./../db')
 var linkGenerator = require('./../lib/linkGenerator.js')
 
 var linkGen = new linkGenerator()
-var linksDB = new db.linksDB()
+//var linksDB = new db.linksDB()
+var linksDB = db.linksDB.linksDB
 
 // desc: generate miniUrl, check DB if not existing yet and then store it
 module.exports = {
