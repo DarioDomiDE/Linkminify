@@ -66,21 +66,10 @@ module.exports = {
 		// generate miniUrl hash
 		linkGen
 			.generate(realUrl)
-			.then(miniUrl => checkDb(miniUrl))
+			.then(miniUrl => storeDb(miniUrl))
 
-		var checkDb = function(miniUrl) {
-
-			// store miniUrl
+		var storeDb = function(miniUrl) {
 			that.link.miniUrl = miniUrl
-
-			// check in db if miniUrl exists
-			linksDB
-				.exists(that.link)
-				.then(storeDb)
-				.catch(throw409)
-		}
-
-		var storeDb = function() {
 			// store miniUrl in db
 			linksDB
 			.create(that.link)
