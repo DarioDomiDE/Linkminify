@@ -53,12 +53,23 @@ class LinksDB {
 	remove(data) {
 		var that = this
 		return new Promise(function(resolve, reject) {
-			model
+			that.linkModel
 				.remove({realUrl: data.realUrl, miniUrl: data.miniUrl})
 				.then(resolve)
 				.catch(reject)
 		})
 	}
+
+	update(conditions, data){
+		var that = this
+		return new Promise(function(resolve, reject) {
+			that.linkModel
+				.updateOne(conditions, data)
+				.then(resolve)
+				.catch(reject)
+		})
+	}
+
 
 }
 

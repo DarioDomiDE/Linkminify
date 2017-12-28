@@ -26,6 +26,11 @@ class UnknownUrl {
 		// FIND ONE
 		var findSuccessful = function(data) {
 			console.log('result: ' + data)
+
+			data.accessCount++
+			var conditions = {miniUrl: data.miniUrl}
+			linksDB.update(conditions, data)
+
 			var finalUrl = data.realUrl
 			res.redirect(finalUrl)
 			//res.writeHead(301,
