@@ -50,6 +50,15 @@ module.exports = {
 		if(realUrl === undefined)
 			return throw404('realUrl not defined')
 
+		realUrl = realUrl.toLowerCase()
+
+		var n = realUrl.indexOf('https://')
+		var n2 = realUrl.indexOf('http://')
+		if(n == -1 && n2 == -1) {
+			realUrl = "http://" + realUrl
+		}
+
+
 		// create link object
 		this.link = {}
 		this.link.realUrl = realUrl
