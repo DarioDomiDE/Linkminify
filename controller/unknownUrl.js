@@ -1,20 +1,13 @@
-
 var db = require('./../db')
+var outputHandling = require('./../lib/outputHandling.js')
+
 var linksDB = db.linksDB.instance
+var output = outputHandling.instance
 
 class UnknownUrl {
-	constructor() {
-		console.log("constructor")
-	}
+	constructor() {}
 	
 	handle(req, res) {
-
-		var throw404 = function(err) {
-			if(err != null)
-				console.log(err)
-			res.writeHead(404)
-			res.end()
-		}
 
 		var miniUrl = req.params.url
 		var conditions = {'miniUrl': miniUrl}
@@ -27,16 +20,11 @@ class UnknownUrl {
 			res.redirect(finalUrl)
 			res.end()
 		}
-		var findFailed  = function(err) {
-			console.log('buuuuh :(')
-			throw404(err)
-		}
+
 		linksDB
 			.findOne(conditions, 'realUrl miniUrl accessCount')
 			.then(findSuccessful)
-			.catch(findFailed)
-			
-
+			.catch(err => output.throw404(res, err))
 
 	}
 	

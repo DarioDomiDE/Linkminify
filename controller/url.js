@@ -4,6 +4,7 @@ var lib = require('./../lib')
 var linkGenerator = lib.linkGenerator
 var linkGen = new linkGenerator()
 var linksDB = db.linksDB.instance
+var output = lib.output.instance
 
 // desc: generate miniUrl, check DB if not existing yet and then store it
 module.exports = {
@@ -18,31 +19,11 @@ module.exports = {
 	post: function(req, res, body) {
 
 		var that = this
-		
-		// TODO auslagern und nicht doppelt
-		var throw200 = function(data) {
-			res.writeHead(200)
-			if(typeof(data) === 'object')
-				data = JSON.stringify(data);
-			res.end(data)
-		}
-		var throw400 = function(err) {
-			if(err != null)
-				console.log(err)
-			res.writeHead(400)
-			res.end()
-		}
-		var throw404 = function(err) {
-			if(err != null)
-				console.log(err)
-			res.writeHead(404)
-			res.end()
-		}
 
 		// validate input
 		var realUrl = body.realUrl
-		if(realUrl === undefined)
-			return throw404('realUrl not defined')
+		if(!realUrl || 0 === realUrl.length)
+			return output.throw400(res, 'realUrl not defined')
 
 		realUrl = realUrl.toLowerCase()
 
@@ -59,15 +40,15 @@ module.exports = {
 		linkGen
 			.generate(realUrl)
 			.then(miniUrl => storeDb(miniUrl))
-			.catch(throw400)
+			.catch(err => output.throw400(res, err))
 
 		// store miniUrl in db
 		var storeDb = function(miniUrl) {
 			that.link.miniUrl = miniUrl
 			linksDB
 			.create(that.link)
-				.then(throw200(that.link))
-				.catch(throw400)
+				.then(output.throw201(res, that.link))
+				.catch(err => output.throw400(res, err))
 
 		}
 
