@@ -51,8 +51,6 @@ module.exports = {
 			realUrl = "http://" + realUrl
 		}
 
-
-		// create link object
 		this.link = {}
 		this.link.realUrl = realUrl
 

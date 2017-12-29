@@ -1,12 +1,4 @@
 
-
-//module.exports = function handle(req, res) {
-	//RouteHandler.on('unknownUrl', handleUrl)
-	//var handleUrl = function(url) {		
-	//}
-		//res.writeHead(200)
-	//	res.end('Url is: ' + url)
-//}
 var db = require('./../db')
 var linksDB = db.linksDB.instance
 

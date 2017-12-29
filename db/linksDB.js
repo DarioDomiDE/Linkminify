@@ -70,11 +70,11 @@ class LinksDB {
 		})
 	}
 
-	find(condition) {
+	find(condition, returnFields) {
 		var that = this
 		return new Promise(function(resolve, reject) {
 			that.linkModel
-				.find(condition)
+				.find(condition, returnFields)
 				.then(resolve)
 				.catch(reject)
 		})
