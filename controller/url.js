@@ -59,6 +59,7 @@ module.exports = {
 		linkGen
 			.generate(realUrl)
 			.then(miniUrl => storeDb(miniUrl))
+			.catch(throw400)
 
 		// store miniUrl in db
 		var storeDb = function(miniUrl) {

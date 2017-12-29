@@ -1,14 +1,13 @@
 var express = require('express')
 var app = express()
-var routeHandler = require('./routeHandler.js')
 var db = require('./db')
 var lib = require('./lib')
 var utils = require('./utils')
 
 var handleError = utils.errorHandling.handleError
+var routes = lib.routeHandler.instance
 
 // initialize RouteHandler
-const routes = new routeHandler()
 app = routes.handle(app)
 
 // initialize DB
