@@ -1,6 +1,7 @@
 var db = require('./../db')
-var linkGenerator = require('./../lib/linkGenerator.js')
+var lib = require('./../lib')
 
+var linkGenerator = lib.linkGenerator
 var linkGen = new linkGenerator()
 var linksDB = db.linksDB.instance
 
@@ -59,17 +60,13 @@ module.exports = {
 			.generate(realUrl)
 			.then(miniUrl => storeDb(miniUrl))
 
+		// store miniUrl in db
 		var storeDb = function(miniUrl) {
 			that.link.miniUrl = miniUrl
-			// store miniUrl in db
 			linksDB
 			.create(that.link)
-				.then(function(data) {
-					throw200(that.link)
-				})
-				.catch(function(err) {
-					throw400(err)
-				})
+				.then(throw200(that.link))
+				.catch(throw400)
 
 		}
 

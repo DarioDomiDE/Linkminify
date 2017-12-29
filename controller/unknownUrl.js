@@ -17,10 +17,10 @@ class UnknownUrl {
 		}
 
 		var miniUrl = req.params.url
+		var conditions = {'miniUrl': miniUrl}
 
 		var findSuccessful = function(data) {
 			data.accessCount++
-			var conditions = {miniUrl: data.miniUrl}
 			linksDB.update(conditions, data)
 
 			var finalUrl = data.realUrl
@@ -28,10 +28,11 @@ class UnknownUrl {
 			res.end()
 		}
 		var findFailed  = function(err) {
-			throw404('buuuuh :( : ' + err)
+			console.log('buuuuh :(')
+			throw404(err)
 		}
 		linksDB
-			.findOne({'miniUrl': miniUrl}, 'realUrl miniUrl accessCount')
+			.findOne(conditions, 'realUrl miniUrl accessCount')
 			.then(findSuccessful)
 			.catch(findFailed)
 			
