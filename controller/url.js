@@ -2,8 +2,7 @@ var db = require('./../db')
 var linkGenerator = require('./../lib/linkGenerator.js')
 
 var linkGen = new linkGenerator()
-//var linksDB = new db.linksDB()
-var linksDB = db.linksDB.linksDB
+var linksDB = db.linksDB.instance
 
 // desc: generate miniUrl, check DB if not existing yet and then store it
 module.exports = {
@@ -36,12 +35,6 @@ module.exports = {
 			if(err != null)
 				console.log(err)
 			res.writeHead(404)
-			res.end()
-		}
-		var throw409 = function(err) {
-			if(err != null)
-				console.log(err)
-			res.writeHead(409)
 			res.end()
 		}
 

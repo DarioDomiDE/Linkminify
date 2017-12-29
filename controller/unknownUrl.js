@@ -8,38 +8,35 @@
 	//	res.end('Url is: ' + url)
 //}
 var db = require('./../db')
-var linksDB = db.linksDB.linksDB
+var linksDB = db.linksDB.instance
 
 class UnknownUrl {
 	constructor() {
 		console.log("constructor")
-		//RouteHandler.on('unknownUrl', handleUrl)
 	}
 	
-	handle(req, res) {		
-		//res.writeHead(200)
-		//res.end('Url is: ' + url)
+	handle(req, res) {
+
+		var throw404 = function(err) {
+			if(err != null)
+				console.log(err)
+			res.writeHead(404)
+			res.end()
+		}
 
 		var miniUrl = req.params.url
-		//var findmini = realUrl
 
-		// FIND ONE
 		var findSuccessful = function(data) {
-			console.log('result: ' + data)
-
 			data.accessCount++
 			var conditions = {miniUrl: data.miniUrl}
 			linksDB.update(conditions, data)
 
 			var finalUrl = data.realUrl
 			res.redirect(finalUrl)
-			//res.writeHead(301,
- 			//{Location: 'http://www.pornhub.com'}
-			//);
 			res.end()
 		}
 		var findFailed  = function(err) {
-			console.log('buuuuh :( : ' + err)
+			throw404('buuuuh :( : ' + err)
 		}
 		linksDB
 			.findOne({'miniUrl': miniUrl}, 'realUrl miniUrl accessCount')

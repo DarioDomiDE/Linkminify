@@ -10,9 +10,6 @@ class RouteHandler extends EventEmitter {
 	}
   
 	handle(app) {
-		//var that = this
-
-			
 		app.post('/:url', function (req, res) {
 			handleUrls(req, res)
 		})
@@ -31,7 +28,6 @@ class RouteHandler extends EventEmitter {
 				if(url !== undefined) {
 					uu.handle(req, res)
 				} else {
-					//that.emit('unknownUrl', url)
 					res.writeHead(200)
 					res.end('Url is: ' + url)
 				}

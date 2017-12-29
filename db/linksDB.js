@@ -35,7 +35,7 @@ class LinksDB {
 				.findOne(conditions)
 				.select(returnFields)
 				.exec()
-				.then(resolve)
+				.then(data => (data !== null) ? resolve(data) : reject('it doesn\'t exists'))
 				.catch(reject) 
 		})
 	}
@@ -45,7 +45,7 @@ class LinksDB {
 		return new Promise(function(resolve, reject) {
 			that
 				.findOne(conditions, '')
-				.then(data => (data == null) ? resolve() : reject(null) )
+				.then(data => (data !== null) ? resolve(data) : reject('it doesn\'t exists'))
 				.catch(reject)
 		})
 	}
@@ -60,11 +60,21 @@ class LinksDB {
 		})
 	}
 
-	update(conditions, data){
+	update(condition, data) {
 		var that = this
 		return new Promise(function(resolve, reject) {
 			that.linkModel
-				.updateOne(conditions, data)
+				.updateOne(condition, data)
+				.then(resolve)
+				.catch(reject)
+		})
+	}
+
+	find(condition) {
+		var that = this
+		return new Promise(function(resolve, reject) {
+			that.linkModel
+				.find(condition)
 				.then(resolve)
 				.catch(reject)
 		})
@@ -74,4 +84,4 @@ class LinksDB {
 }
 
 module.exports = LinksDB
-LinksDB.linksDB = new LinksDB()
+LinksDB.instance = new LinksDB()
