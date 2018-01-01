@@ -24,12 +24,10 @@ class MongoDB extends iDB {
 	connect() {
 		var that = this
 		return new Promise(function(resolve, reject) {
-			console.log("TRY")
 	        if(that.connectingRunning) {
 	            return resolve(that.connection)
 	        }
 			that.connectingRunning = true
-			console.log("CONNECT...")
 			that
 				.setDb()
 				.then(function() {

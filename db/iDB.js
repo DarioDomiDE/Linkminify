@@ -4,7 +4,10 @@ class IDB {
 	constructor() {
 	}
 
-	getDb(connection) {}
+	connect() {}
+
+	getDb() {}
+
 	close() {}
 
 }
