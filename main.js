@@ -3,6 +3,7 @@ var app = express()
 var db = require('./db')
 var lib = require('./lib')
 var utils = require('./utils')
+var config = require('./lib/config.js').getConfig()
 
 var handleError = utils.errorHandling.handleError
 var routes = lib.routeHandler.instance
@@ -11,19 +12,11 @@ var routes = lib.routeHandler.instance
 app = routes.handle(app)
 
 // initialize DB
-config = lib.config.getConfig()
-var configUser = config.mongodb.user
-var configPw = config.mongodb.pw
-var configHost = config.mongodb.host
-var configPort = config.mongodb.port
-var configDb = config.mongodb.db
-var mongoConnection = 'mongodb://'+configUser+':'+configPw+
-					  '@'+configHost+':'+configPort+'/'+configDb
 
-const mongoDB = new db.mongoDB()
+var mongoDB = db.mongoDB.instance
 mongoDB
-	.setDb(mongoConnection)
-	.then(() => {
+	.connect()
+	.then(connection => {
 		console.log('MongoDB Connection successful')
 		app.listen(config.port)
 	})

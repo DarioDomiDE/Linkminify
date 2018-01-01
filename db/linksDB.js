@@ -1,8 +1,13 @@
 var mongoose = require('mongoose')
+var mongoDB = require('./mongoDB.js')
 
 class LinksDB {
 		
 	constructor() {
+
+		// try db connect if not already connected
+		mongoDB.instance.connect()
+
 		var schema = mongoose.Schema
 		mongoose.Promise = Promise
 		var linkSchema = new schema({
