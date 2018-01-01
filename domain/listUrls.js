@@ -8,12 +8,14 @@ module.exports = {
 	
 	get: function(req, res) {
 
-		var conditions = {}
-		var returnFields = 'realUrl miniUrl accessCount'
-		linksDB
-			.find(conditions, returnFields)
-			.then(data => output.throw200(res, data))
-			.catch(err => output.throw404(res, err))
+		return new Promise(function(resolve, reject) {
+			var conditions = {}
+			var returnFields = 'realUrl miniUrl accessCount'
+			linksDB
+				.find(conditions, returnFields)
+				.then(resolve)
+				.catch(reject)
+		})
 
 	}
 	

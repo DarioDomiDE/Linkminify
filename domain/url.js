@@ -11,15 +11,14 @@ module.exports = {
 	
 	get: function(req, res) {
 		
-		//console.log("GET /url")
-		//var err = {}
-		//output.throw404(res, err)
-		// NOT IMPLEMENTED YET
+		return new Promise(function(resolve, reject) {
+			resolve('NOT_IMPLEMENTED_YET')
+		})
 
 	},
 
 	post: function(body) {
-		
+
 		var that = this
 
 		return new Promise(function(resolve, reject) {
@@ -45,7 +44,7 @@ module.exports = {
 			linksDB
 				.create(that.link)
 				.then(resolve(that.link))
-				.catch(err => reject(err))
+				.catch(reject)
 		})
 
 
