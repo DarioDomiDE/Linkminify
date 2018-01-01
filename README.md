@@ -17,6 +17,12 @@ node main.js
 node main.js > output.log 2> err.log #on production machines
 ```
 
+Run tests
+```Bash
+mocha tests --recursive
+mocha tests --recursive --watch #optional: stay in the test-mode and refreshing itself
+```
+
 ## Rest API
 To have a detailed view into the methods of the API and what return to except, please have a look into the SwaggerUI Documentation:
 https://app.swaggerhub.com/apis/DarioDomiDE/linkminify/1.0.0#/

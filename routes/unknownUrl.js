@@ -11,12 +11,11 @@ class UnknownUrlRoute {
 	handle(req, res) {
 
 		var miniUrl = req.params.url
-				console.log("handle1")
 
 		unknownUrl
 			.handle(miniUrl)
-			.then(realUrl => {
-				res.redirect(realUrl)
+			.then(data => {
+				res.redirect(data.realUrl)
 				res.end()
 			})
 			.catch(err => output.throw404(res, err))

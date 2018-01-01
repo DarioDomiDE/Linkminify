@@ -35,7 +35,7 @@ class LinksDB {
 				.findOne(conditions)
 				.select(returnFields)
 				.exec()
-				.then(data => (data !== null) ? resolve(data) : reject('it doesn\'t exists'))
+				.then(data => (data !== null) ? resolve(data) : reject('DATA_DOES_NOT_EXISTS'))
 				.catch(reject) 
 		})
 	}
@@ -45,7 +45,7 @@ class LinksDB {
 		return new Promise(function(resolve, reject) {
 			that
 				.findOne(conditions, '')
-				.then(data => (data !== null) ? resolve(data) : reject('it doesn\'t exists'))
+				.then(data => (data !== null) ? resolve(data) : reject('DATA_DOES_NOT_EXISTS'))
 				.catch(reject)
 		})
 	}
