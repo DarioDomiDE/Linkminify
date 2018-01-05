@@ -29,3 +29,20 @@ https://app.swaggerhub.com/apis/DarioDomiDE/linkminify/1.0.0#/
 
 ## FYI
 A User-Management is not integrated yet. Also this is just the API and doesn't contains a frontend.
+
+## ToDo
+  * [x] Update REST API
+  * [ ] Update controller to new REST Doc
+  * [ ] ES6 style (and usage of import, export default, async, const/let)
+  * [ ] Bug connecting returns True
+  * [ ] including ESLint (for unused styles)
+  * [ ] DotEnv lib
+  * [ ] using of npm packages for handling routes, hashes, config etc
+  * [ ] using forever module
+  * [ ] if crashes happen -> throw error in 404 / 500 return, but application shouldn't crash
+  * [ ] repository pattern
+  * [ ] acceptance-, integration- and unit-tests
+  * [ ] mocks for MongoDB (and others that needed to be mocked)
+  * [ ] instead of random-ids use the autoincrement-id parsed as an alphabet
+  * [ ] use semicolons
+  * [ ] another abstraction layer for concrete db implementation
